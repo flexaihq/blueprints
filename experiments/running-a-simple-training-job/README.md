@@ -32,7 +32,8 @@ To start the Training Job, run the following command:
 
 ```bash
 flexai training run first-training-job --repository-url https://github.com/flexaihq/experiments --dataset gpt2-tokenized-wikitext \
- -- code/causal-language-modeling/train.py --requirements-path code/causal-language-modeling/requirements.txt \
+ --requirements-path code/causal-language-modeling/requirements.txt \
+ -- code/causal-language-modeling/train.py \
     --do_eval \
     --do_train \
     --dataset_name wikitext \
