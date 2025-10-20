@@ -25,6 +25,7 @@ The following table lists out the experiments available in this repository. Each
 | 9   | [Fine-Tuning a language Model using _Flash Attention_](/experiments/flash-attention-ft-on-a-language-model/README.md)            | Fine-tune a causal language model efficiently using the [flash-attn package](https://github.com/Dao-AILab/flash-attention) |
 | 10  | [Fine-Tuning a language Model with LlamaFactory](/experiments/llama-factory/README.md)                                           | Demonstrates how to use [LlamaFactory](https://github.com/hiyouga/LLaMA-Factory) with FlexAI                               |
 | 11  | [RAG Application with LangChain and FlexAI Inference Endpoints](/experiments/rag-application/README.md)                                                                        | Interactive interface for users to ask questions based on provided documents using Retrieval-Augmented Generation         |
+| 12  | [Speech-to-Text Application Using FlexAI Inference Endpoints](/experiments/speech-to-text-inference/README.md)                                                    | Interactive interface for recording audio messages and receiving transcriptions                                     |
 
 ---
 
