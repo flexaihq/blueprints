@@ -75,7 +75,7 @@ In this experiment, we will use a pre-processed version of the the `wikitext` da
 Now that all the pieces are in place (_wandb_ Secret, Source, and Dataset), you can run the training job with experiment tracking enabled.
 
 ```bash
-flexai training run gpt2training-tracker --repository-url https://github.com/flexaihq/experiments --dataset gpt2-tokenized-wikitext --secret WANDB_API_KEY=<WANDB_API_KEY_SECRET_NAME> --env WANDB_PROJECT=<YOUR_PROJECT_NAME> --requirements-path code/causal-language-modeling/requirements.txt \
+flexai training run gpt2training-tracker --repository-url https://github.com/flexaihq/blueprints --dataset gpt2-tokenized-wikitext --secret WANDB_API_KEY=<WANDB_API_KEY_SECRET_NAME> --env WANDB_PROJECT=<YOUR_PROJECT_NAME> --requirements-path code/causal-language-modeling/requirements.txt \
   -- code/causal-language-modeling/train.py \
     --do_eval \
     --do_train \

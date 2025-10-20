@@ -31,8 +31,9 @@ Now, it's time to train your LLM on the dataset you just _pushed_ in the previou
 To start the Training Job, run the following command:
 
 ```bash
-flexai training run first-training-job --repository-url https://github.com/flexaihq/experiments --dataset gpt2-tokenized-wikitext \
- -- code/causal-language-modeling/train.py --requirements-path code/causal-language-modeling/requirements.txt \
+flexai training run first-training-job --repository-url https://github.com/flexaihq/blueprints --dataset gpt2-tokenized-wikitext \
+ --requirements-path code/causal-language-modeling/requirements.txt \
+ -- code/causal-language-modeling/train.py \
     --do_eval \
     --do_train \
     --dataset_name wikitext \
@@ -50,7 +51,7 @@ flexai training run first-training-job --repository-url https://github.com/flexa
 The first line defines the 3 main components required to run a Training Job in FlexAI:
 
 1. The Training Job's name (`first-training-job`).
-1. The URL of the repository containing the training script (`https://github.com/flexaihq/experiments`).
+1. The URL of the repository containing the training script (`https://github.com/flexaihq/blueprints`).
 1. The name of the dataset to be used (`gpt2-tokenized-wikitext`).
 
 The second line defines the script that will be executed when the Training Job is started (`code/causal-language-modeling/train.py`).
@@ -100,7 +101,7 @@ You can run your newly fine-tuned model in an [FlexAI Interactive Session](#run-
 If you haven't already, clone this repository on your host machine:
 
 ```bash
-git clone https://github.com/flexaihq/experiments.git flexai-experiments --depth 1 --branch main && cd flexai-experiments
+git clone https://github.com/flexaihq/blueprints.git blueprints --depth 1 --branch main && cd blueprints
 ```
 
 #### 2. Install the dependencies
@@ -142,7 +143,7 @@ python code/causal-language-modeling/predict.py \
 
 An Interactive Training Session allows you to connect to a Training Environment runtime on FlexAI and run your both training and prediction or inference scripts directly from this environment. This is a great way to test your scripts and experiment with different hyperparameters without having to create multiple Training Jobs per configuration change.
 
-You will find the guide on how to run an Interactive Training Session in the [FlexAI Documentation](https://docs.flex.ai/cli/guides/interactive-training/). You'll need to use the path for the `flexaihq/experiments` repository as your `--repository-url` and pass the `gpt2-tokenized-wikitext` dataset you pushed earlier as `--dataset`, unless you want to leverage the Interactive Training Session's compute resources to [manually pre-process the dataset](#manual-dataset-pre-processing).
+You will find the guide on how to run an Interactive Training Session in the [FlexAI Documentation](https://docs.flex.ai/cli/guides/interactive-training/). You'll need to use the path for the `flexaihq/blueprints` repository as your `--repository-url` and pass the `gpt2-tokenized-wikitext` dataset you pushed earlier as `--dataset`, unless you want to leverage the Interactive Training Session's compute resources to [manually pre-process the dataset](#manual-dataset-pre-processing).
 
 ### Manual Dataset Pre-processing
 
