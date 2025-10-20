@@ -36,7 +36,7 @@ class RagPipeline:
             chunk_size (int, optional): The size of each chunk for processing. Defaults to 500.
             chunk_overlap (int, optional): The overlap size between consecutive chunks. Defaults to 50.
             top_k (int, optional): The number of top scored documents to retrieve. Defaults to 5.
-            use_tool_calling (bool, optional): Flag to indicate whether to use LLM tool calling.
+            use_tools (bool, optional): Flag to indicate whether to use LLM tool calling.
                 If True, the LLM will decide whether it needs to use tools to retrieve information or directly
                 respond to the query without invoking the document search.
                 If False, document search will always be performed and the LLM will always receive the
