@@ -1,0 +1,4 @@
+langgraph>=0.6.6
+langgraph-supervisor>=0.0.29
+langchain-tavily>=0.2.11
+langchain[openai]>=0.3.25

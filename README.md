@@ -26,6 +26,7 @@ The following table lists out the experiments available in this repository. Each
 | 10  | [Fine-Tuning a language Model with LlamaFactory](/experiments/llama-factory/README.md)                                           | Demonstrates how to use [LlamaFactory](https://github.com/hiyouga/LLaMA-Factory) with FlexAI                               |
 | 11  | [RAG Application with LangChain and FlexAI Inference Endpoints](/experiments/rag-application/README.md)                                                                        | Interactive interface for users to ask questions based on provided documents using Retrieval-Augmented Generation         |
 | 12  | [Speech-to-Text Application Using FlexAI Inference Endpoints](/experiments/speech-to-text-inference/README.md)                                                    | Interactive interface for recording audio messages and receiving transcriptions                                     |
+| 13  | [Multi-Agent Orchestration with LangGraph](/experiments/multi-agent/README.md)                                                   | Build a multi-agent system where specialized AI agents work together under a central supervisor                            |
 
 ---
 
