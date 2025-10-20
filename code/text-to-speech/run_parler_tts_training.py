@@ -734,7 +734,7 @@ def main():
             return {"target_length": target_length + len(prompt) + len(description)}
 
         cache_file_names = {
-            dataset_name: f"{TMP_INTER_CACHE_DIR}/{dataset_name}"
+            dataset_name: f"{TMP_INTER_CACHE_DIR}/{dataset_name}.arrow"
             for dataset_name in vectorized_datasets.keys()
         }
         with accelerator.local_main_process_first():
