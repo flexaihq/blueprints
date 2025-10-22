@@ -1,6 +1,6 @@
-# Fine-tune on Domain Specific Data and Deploy Endpoint on FlexAI
+# Train and Serve a French LLM on FlexAI with LlamaFactory
 
-This experiment demonstrates how to use FlexAI to fine-tune language models on domain-specific data using LlamaFactory, then deploy them as production-ready inference endpoints. For illustration purposes, we'll fine-tune for maximum command of French using the `Qwen2.5-7B` model and the `openhermes-fr` dataset.
+This experiment demonstrates how to fine-tune a language model on French data using LlamaFactory and deploy it as a production-ready inference endpoint on FlexAI. We'll fine-tune the `Qwen2.5-7B` model on the `openhermes-fr` dataset to create a specialized French language model.s
 
 You will see that this process requires configuring LlamaFactory's dataset registry, setting up training parameters, leveraging FlexAI's managed training infrastructure, and deploying the fine-tuned model as a scalable inference endpoint.
 
