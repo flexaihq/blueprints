@@ -66,7 +66,7 @@ def toggle_api_key_visibility(visible, value):
 
 def clear_history():
     new_id = uuid4()
-    print(f"New thread_id: {new_id}")
+    logging.info(f"New thread_id: {new_id}")
     return str(new_id), None
 
 
@@ -112,9 +112,12 @@ def on_files_deleted():
 
 
 css = """
+:root {
+  color-scheme: light dark;
+}
 footer { visibility: hidden; }
 #chatbot {
-    background: #f7f7fa !important;
+    background: light-dark(#f7f7fa, #000) !important;
 }
 #main-card {
     background: #fff;
@@ -123,16 +126,16 @@ footer { visibility: hidden; }
     min-height: 240px;
 }
 .user {
-    background: #fff;
-    border-color: #fff;
+    background: light-dark(#fff, #000);
+    border-color: light-dark(#fff, #000);
 }
 .bot {
-    background: #f7f7fa;
-    border-color: #f7f7fa;
+    background: light-dark(#f7f7fa, #18181b);
+    border-color: light-dark(#f7f7fa, #18181b);
     box-shadow: 0px 0px 0px 0px !important;
 }
 #chat-area {
-    background: #f7f7fa;
+    background: light-dark(#f7f7fa, #000);
 }
 #chat-input {
     background: #fff;
@@ -141,7 +144,6 @@ footer { visibility: hidden; }
     background: #fff;
 }
 #filetable { button { color: black; background-color: white; } }
-h1,h2 { color: #111322; }
 .tab-content {
     background: #fff;
 }
@@ -173,6 +175,7 @@ with gr.Blocks(
                     with gr.Row():
                         with gr.Column(scale=1):
                             chatbot = gr.Chatbot(
+                                height="70dvh",
                                 show_label=False,
                                 elem_id="chatbot",
                                 type="messages",

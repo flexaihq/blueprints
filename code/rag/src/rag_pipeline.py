@@ -2,6 +2,7 @@
 # This file is part of the FlexAI Experiments repository.
 # SPDX-License-Identifier: MIT
 
+import logging
 import os
 import uuid
 from typing import List
@@ -54,7 +55,7 @@ class RagPipeline:
             "You are FlexBot, an assistant for question-answering tasks. "
             "Use the following pieces of retrieved context to answer "
             "the question. If you don't know the answer, say that you "
-            "don't know. Use three sentences maximum and keep the "
+            "don't know. Use six sentences maximum and keep the "
             "answer concise."
         )
 
@@ -292,6 +293,7 @@ class RagPipeline:
         self, input_message: str, thread_id: str = None
     ) -> dict[str, List[BaseMessage]]:
         if thread_id is None:
+            logging.warning("thread_id is NONE")
             thread_id = str(uuid.uuid4())
         config = {"configurable": {"thread_id": thread_id}}
         res = self.graph.invoke(
@@ -302,4 +304,5 @@ class RagPipeline:
 
     def clear_vector_store(self) -> None:
         """Clear the vector store."""
+        logging.info("Clear the vector store")
         self._set_vector_store()
