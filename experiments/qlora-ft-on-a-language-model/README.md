@@ -49,7 +49,9 @@ Then paste your _HuggingFace Token_ API key value.
 To start the Training Job, run the following command:
 
 ```bash
-flexai training run llama3-1-training-ddp --repository-url https://github.com/flexaihq/blueprints --dataset llama-tokenized-oag --secret HF_TOKEN=<HF_AUTH_TOKEN_SECRET_NAME> --secret WANDB_API_KEY=<WANDB_API_KEY_SECRET_NAME> --env WANDB_PROJECT=<YOUR_PROJECT_NAME> \
+flexai training run llama3-1-training-ddp --repository-url https://github.com/flexaihq/blueprints --requirements-path code/causal-language-modeling-qlora/requirements.txt \
+  --dataset llama-tokenized-oag \
+  --secret HF_TOKEN=<HF_AUTH_TOKEN_SECRET_NAME> --secret WANDB_API_KEY=<WANDB_API_KEY_SECRET_NAME> --env WANDB_PROJECT=<YOUR_PROJECT_NAME> \
   --nodes 1 --accels 2 \
   -- code/causal-language-modeling-qlora/train.py \
     --model_name_or_path meta-llama/Meta-Llama-3.1-8B \
