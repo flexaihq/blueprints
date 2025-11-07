@@ -1,0 +1,12 @@
+packaging==23.2
+setuptools==75.8.0
+wheel
+ninja
+
+flash-attn>=2.6.3
+
+# Install deepspeed
+deepspeed>=0.15.0
+
+# Install axolotl from GitHub
+git+https://github.com/flexaihq/axolotl

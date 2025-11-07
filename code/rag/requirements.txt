@@ -1,10 +1,10 @@
 beautifulsoup4>=4.13.4
 docx2txt>=0.9
-gradio>=5.29
-langchain-community>=0.3.23
-langchain-openai>=0.3.16
-langchain-text-splitters>=0.3.8
-langgraph>=0.4.1
+gradio==5.49.1
+langchain-community==0.3.30
+langchain-openai==0.3.35
+langchain-text-splitters==0.3.11
+langgraph==0.6.8
 lxml>=5.4.0
 pypdf>=5.4.0
 transformers>=4.43.3

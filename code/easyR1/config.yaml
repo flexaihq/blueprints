@@ -13,7 +13,7 @@ data:
   rollout_batch_size: 512  # equivalent to verl's data.train_batch_size
   mini_rollout_batch_size:       # equivalent to verl's data.gen_batch_size
   val_batch_size: 1024
-  format_prompt: ./examples/format_prompt/math.jinja
+  format_prompt: ./code/easyR1/format_prompt/math.jinja
   override_chat_template:
   shuffle: true
   seed: 1
@@ -84,7 +84,7 @@ worker:
 
   reward:
     reward_type: batch
-    reward_function: ./examples/reward_function/math.py:compute_score
+    reward_function: ./code/easyR1/reward_function/math.py:compute_score
 
 trainer:
   total_epochs: 15

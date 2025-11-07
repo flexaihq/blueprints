@@ -11,7 +11,7 @@ For illustration purposes, we'll fine-tune the `Qwen2.5-7B-Instruct` model on ma
 Run GRPO training on Qwen2.5-7B with this single command:
 
 ```bash
-flexai training run Grpo \
+flexai training run grpo \
   --accels 8 --nodes 1 \
   --repository-url https://github.com/flexaihq/blueprints \
   --env FORCE_TORCHRUN=1 \
@@ -40,11 +40,10 @@ The framework is built on top of [VERL (Versatile Efficient Reinforcement Learni
 
 The `code/easyR1/` directory contains:
 - `config.yaml` - Main GRPO training configuration
-- `baselines/` - Reference training scripts for different tasks
 - `format_prompt/` - Jinja templates for prompt formatting
 - `reward_function/` - Custom reward scoring functions
 
-See Step 2 below for detailed usage of each component.
+For baseline training scripts and additional examples, refer to the [EasyR1 GitHub repository](https://github.com/hiyouga/EasyR1).
 
 ## Step 1: Understand the Configuration
 
@@ -59,7 +58,7 @@ data:
   val_files: hiyouga/math12k@test
   prompt_key: problem
   answer_key: answer
-  format_prompt: ./examples/format_prompt/math.jinja
+  format_prompt: ./code/easyR1/format_prompt/math.jinja
   max_prompt_length: 2048
   max_response_length: 2048
   rollout_batch_size: 512
@@ -86,24 +85,19 @@ worker:
     temperature: 1.0
   reward:
     reward_type: batch
-    reward_function: ./examples/reward_function/math.py:compute_score
+    reward_function: ./code/easyR1/reward_function/math.py:compute_score
 ```
 
-## Step 2: Choose Your Training Configuration
+## Step 2: Reference Baseline Examples
 
-EasyR1 provides multiple pre-configured training scripts for different models and tasks:
+For pre-configured training scripts and baseline examples, refer to the [EasyR1 repository](https://github.com/hiyouga/EasyR1). The repository provides multiple baseline configurations for different models and tasks:
 
-### Mathematical Reasoning
-- `qwen2_5_7b_math_grpo.sh` - 7B model with GRPO
-- `qwen3_4b_math_grpo.sh` - 4B model with GRPO
+### Available Baselines (in EasyR1 repo)
+- **Mathematical Reasoning**: `qwen2_5_7b_math_grpo.sh`, `qwen3_4b_math_grpo.sh`
+- **Geometric Reasoning (Vision-Language)**: `qwen2_5_vl_7b_geo3k_grpo.sh`, `qwen2_5_vl_7b_geo3k_dapo.sh`, `qwen2_5_vl_7b_geo3k_reinforce.sh`
+- **Multi-Image Tasks**: `qwen2_5_vl_7b_multi_image.sh`
 
-### Geometric Reasoning (Vision-Language)
-- `qwen2_5_vl_7b_geo3k_grpo.sh` - 7B vision-language model
-- `qwen2_5_vl_7b_geo3k_dapo.sh` - Using DAPO algorithm
-- `qwen2_5_vl_7b_geo3k_reinforce.sh` - Using REINFORCE
-
-### Multi-Image Tasks
-- `qwen2_5_vl_7b_multi_image.sh` - Multi-image understanding
+You can adapt these examples to work with FlexAI by following the training commands in this README.
 
 ## Step 3: Customize Your Configuration
 
@@ -140,7 +134,7 @@ def compute_score(prompts, responses, answers):
     return scores
 ```
 
-Then update the config:
+Then update the config to reference your custom reward function:
 ```yaml
 worker:
   reward:
@@ -193,12 +187,12 @@ To speed up training and avoid downloading large models at runtime, you can pre-
 
 For RL training with EasyR1, we recommend using **1 node (8 × H100 GPUs)** for 7B models to handle the actor, reference model, and rollout workers efficiently.
 
-> **Repository Note**: The commands below use the FlexAI blueprints repository which contains all necessary configuration files in the `code/easyR1/` directory.
+> **Repository Note**: The commands below use this repository which contains all necessary configuration files in the `code/easyR1/` directory.
 
 ### Standard Training: Mathematical Reasoning with GRPO
 
 ```bash
-flexai training run Grpo \
+flexai training run grpo \
   --accels 8 --nodes 1 \
   --repository-url https://github.com/flexaihq/blueprints \
   --env FORCE_TORCHRUN=1 \
@@ -216,7 +210,7 @@ flexai training run Grpo \
 ### Training with Model Prefetch
 
 ```bash
-flexai training run Grpo-prefetched \
+flexai training run grpo-prefetched \
   --accels 8 --nodes 1 \
   --repository-url https://github.com/flexaihq/blueprints \
   --checkpoint qwen25-7b-instruct \
@@ -235,7 +229,7 @@ flexai training run Grpo-prefetched \
 To use a modified configuration or different dataset, override config values:
 
 ```bash
-flexai training run Grpo-custom \
+flexai training run grpo-custom \
   --accels 8 --nodes 1 \
   --repository-url https://github.com/flexaihq/blueprints \
   --env FORCE_TORCHRUN=1 \
@@ -256,13 +250,13 @@ flexai training run Grpo-custom \
 You can check the status and lifecycle events of your Training Job:
 
 ```bash
-flexai training inspect Grpo
+flexai training inspect grpo
 ```
 
 View the logs of your Training Job:
 
 ```bash
-flexai training logs Grpo
+flexai training logs grpo
 ```
 
 ### Training Observability with Weights & Biases
@@ -298,7 +292,7 @@ Then use in your command:
 Once the Training Job completes successfully, you can list all produced checkpoints:
 
 ```bash
-flexai training checkpoints Grpo
+flexai training checkpoints grpo
 ```
 
 Look for checkpoints marked as `INFERENCE READY = true` - these are ready for serving.
@@ -308,7 +302,7 @@ Look for checkpoints marked as `INFERENCE READY = true` - these are ready for se
 Deploy your RL-trained model directly from the checkpoint using FlexAI inference. Replace `<CHECKPOINT_ID>` with the ID from an inference-ready checkpoint:
 
 ```bash
-flexai -v inference serve easyr1-reasoning-endpoint --checkpoint <CHECKPOINT_ID>
+flexai inference serve easyr1-reasoning-endpoint --checkpoint <CHECKPOINT_ID>
 ```
 
 Monitor your inference endpoint status:
@@ -455,7 +449,7 @@ For mathematical reasoning tasks:
 For vision-language models, you'll need to use a VL model and the geometry dataset:
 
 ```bash
-flexai training run Grpo-VL-Geo \
+flexai training run grpo-VL-Geo \
   --accels 8 --nodes 1 \
   --repository-url https://github.com/flexaihq/blueprints \
   --env FORCE_TORCHRUN=1 \
