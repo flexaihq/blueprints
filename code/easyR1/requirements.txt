@@ -1,1 +1,1 @@
-git+https://github.com/hiyouga/EasyR1.git
+git+https://github.com/hiyouga/EasyR1.git@d146d24e990c8102fee44e61e5ca389907712960

@@ -15,7 +15,7 @@ flexai training run grpo \
   --accels 8 --nodes 1 \
   --repository-url https://github.com/flexaihq/blueprints \
   --env FORCE_TORCHRUN=1 \
-  --env WANDB_API_KEY=<YOUR_WANDB_API_KEY> \
+  --secret WANDB_API_KEY=<WANDB_API_KEY_SECRET_NAME> \
   --secret HF_TOKEN=<HF_AUTH_TOKEN_SECRET_NAME> \
   --requirements-path code/easyR1/requirements.txt \
   --runtime pytorch-28-vllm-0110-nvidia \
@@ -24,7 +24,7 @@ flexai training run grpo \
       worker.actor.model.model_path=Qwen/Qwen2.5-7B-Instruct
 ```
 
-Replace `<YOUR_WANDB_API_KEY>` and `<HF_AUTH_TOKEN_SECRET_NAME>` with your actual values.
+Replace `<WANDB_API_KEY_SECRET_NAME>` and `<HF_AUTH_TOKEN_SECRET_NAME>` with your actual values.
 
 ## What is EasyR1?
 
@@ -39,6 +39,7 @@ The framework is built on top of [VERL (Versatile Efficient Reinforcement Learni
 ## Directory Structure
 
 The `code/easyR1/` directory contains:
+
 - `config.yaml` - Main GRPO training configuration
 - `format_prompt/` - Jinja templates for prompt formatting
 - `reward_function/` - Custom reward scoring functions
@@ -49,9 +50,10 @@ For baseline training scripts and additional examples, refer to the [EasyR1 GitH
 
 EasyR1 uses a comprehensive YAML configuration file that controls all aspects of RL training. The main configuration file is located at `code/easyR1/config.yaml` in this repository.
 
-### Key Configuration Sections:
+### Key Configuration Sections
 
 #### Data Configuration
+
 ```yaml
 data:
   train_files: hiyouga/math12k@train
@@ -65,6 +67,7 @@ data:
 ```
 
 #### Algorithm Settings
+
 ```yaml
 algorithm:
   adv_estimator: grpo  # GRPO, DAPO, or REINFORCE
@@ -73,6 +76,7 @@ algorithm:
 ```
 
 #### Worker Configuration
+
 ```yaml
 worker:
   actor:
@@ -93,6 +97,7 @@ worker:
 For pre-configured training scripts and baseline examples, refer to the [EasyR1 repository](https://github.com/hiyouga/EasyR1). The repository provides multiple baseline configurations for different models and tasks:
 
 ### Available Baselines (in EasyR1 repo)
+
 - **Mathematical Reasoning**: `qwen2_5_7b_math_grpo.sh`, `qwen3_4b_math_grpo.sh`
 - **Geometric Reasoning (Vision-Language)**: `qwen2_5_vl_7b_geo3k_grpo.sh`, `qwen2_5_vl_7b_geo3k_dapo.sh`, `qwen2_5_vl_7b_geo3k_reinforce.sh`
 - **Multi-Image Tasks**: `qwen2_5_vl_7b_multi_image.sh`
@@ -104,7 +109,9 @@ You can adapt these examples to work with FlexAI by following the training comma
 For your specific use case, you may want to create a custom configuration. Here's how to customize the `config.yaml`:
 
 ### Custom Dataset
+
 Replace the dataset configuration:
+
 ```yaml
 data:
   train_files: your-username/your-dataset@train
@@ -114,7 +121,9 @@ data:
 ```
 
 ### Custom Reward Function
+
 Create your own reward function in `code/easyR1/reward_function/custom.py`:
+
 ```python
 def compute_score(prompts, responses, answers):
     """
@@ -135,6 +144,7 @@ def compute_score(prompts, responses, answers):
 ```
 
 Then update the config to reference your custom reward function:
+
 ```yaml
 worker:
   reward:
@@ -142,7 +152,9 @@ worker:
 ```
 
 ### Custom Prompt Format
+
 Create a custom Jinja template in `code/easyR1/format_prompt/custom.jinja`:
+
 ```jinja
 {{ problem }}
 
@@ -150,6 +162,7 @@ Please solve this step by step and provide your final answer.
 ```
 
 Update the config:
+
 ```yaml
 data:
   format_prompt: ./code/easyR1/format_prompt/custom.jinja
@@ -166,6 +179,14 @@ flexai secret create <HF_AUTH_TOKEN_SECRET_NAME>
 ```
 
 Then paste your _HuggingFace Token_ API key value.
+
+Use the same command to store your Weights & Biases (wandb) API key as a secret:
+
+```bash
+flexai secret create <WANDB_API_KEY_SECRET_NAME>
+```
+
+Then paste your Weights & Biases API key value.
 
 ## [Optional] Pre-fetch the Model
 
@@ -196,7 +217,7 @@ flexai training run grpo \
   --accels 8 --nodes 1 \
   --repository-url https://github.com/flexaihq/blueprints \
   --env FORCE_TORCHRUN=1 \
-  --env WANDB_API_KEY=<YOUR_WANDB_API_KEY> \
+  --secret WANDB_API_KEY=<WANDB_API_KEY_SECRET_NAME> \
   --secret HF_TOKEN=<HF_AUTH_TOKEN_SECRET_NAME> \
   --requirements-path code/easyR1/requirements.txt \
   --runtime pytorch-28-vllm-0110-nvidia \
@@ -204,8 +225,6 @@ flexai training run grpo \
       config=code/easyR1/config.yaml \
       worker.actor.model.model_path=Qwen/Qwen2.5-7B-Instruct
 ```
-
-> **Note**: Replace `<YOUR_WANDB_API_KEY>` with your actual Weights & Biases API key, or use `--secret WANDB_API_KEY=<SECRET_NAME>` if you've stored it as a FlexAI secret.
 
 ### Training with Model Prefetch
 
@@ -215,7 +234,7 @@ flexai training run grpo-prefetched \
   --repository-url https://github.com/flexaihq/blueprints \
   --checkpoint qwen25-7b-instruct \
   --env FORCE_TORCHRUN=1 \
-  --env WANDB_API_KEY=<YOUR_WANDB_API_KEY> \
+  --secret WANDB_API_KEY=<WANDB_API_KEY_SECRET_NAME> \
   --secret HF_TOKEN=<HF_AUTH_TOKEN_SECRET_NAME> \
   --requirements-path code/easyR1/requirements.txt \
   --runtime pytorch-28-vllm-0110-nvidia \
@@ -233,7 +252,7 @@ flexai training run grpo-custom \
   --accels 8 --nodes 1 \
   --repository-url https://github.com/flexaihq/blueprints \
   --env FORCE_TORCHRUN=1 \
-  --env WANDB_API_KEY=<YOUR_WANDB_API_KEY> \
+  --secret WANDB_API_KEY=<WANDB_API_KEY_SECRET_NAME> \
   --secret HF_TOKEN=<HF_AUTH_TOKEN_SECRET_NAME> \
   --requirements-path code/easyR1/requirements.txt \
   --runtime pytorch-28-vllm-0110-nvidia \
@@ -268,23 +287,6 @@ trainer:
   logger: ["file", "wandb"]
   project_name: easy_r1
   experiment_name: qwen2_5_7b_math_grpo
-```
-
-The WANDB_API_KEY is already included in the training command as an environment variable. You can either:
-
-**Option 1: Use environment variable directly (as shown in the command)**
-```bash
---env WANDB_API_KEY=<YOUR_WANDB_API_KEY>
-```
-
-**Option 2: Store as a FlexAI secret (more secure)**
-```bash
-flexai secret create WANDB_API_KEY
-```
-
-Then use in your command:
-```bash
---secret WANDB_API_KEY=<SECRET_NAME>
 ```
 
 ## Getting Training Checkpoints
@@ -329,12 +331,15 @@ To illustrate the improvement from RL fine-tuning, here's a comparison using a m
 **Problem**: "If a train travels 120 miles in 2 hours, what is its average speed in miles per hour?"
 
 **Base Model Response (Qwen2.5-7B-Instruct before RL training):**
+
 ```
 The average speed is 60 mph.
 ```
-*Issues: Correct answer but no reasoning steps shown*
+
+_Issues: Correct answer but no reasoning steps shown_
 
 **RL Fine-tuned Model Response (after GRPO training on math12k):**
+
 ```
 Let me solve this step by step:
 
@@ -350,7 +355,8 @@ Speed = 120 miles / 2 hours = 60 miles per hour
 
 Therefore, the average speed of the train is 60 mph.
 ```
-*Improvements: Clear reasoning steps, structured approach, educational value*
+
+_Improvements: Clear reasoning steps, structured approach, educational value_
 
 This demonstrates how RL training encourages the model to show its reasoning process, making it more reliable and transparent.
 
@@ -377,6 +383,7 @@ After RL fine-tuning with EasyR1, your model should achieve:
 - **Structured Outputs**: More organized and educational responses
 
 For mathematical reasoning tasks:
+
 - **Explicit Step-by-Step Solutions**: Clear breakdown of problem-solving process
 - **Higher Success Rate**: Improved accuracy on math benchmarks
 - **Better Error Detection**: Ability to identify and correct mistakes
@@ -386,17 +393,20 @@ For mathematical reasoning tasks:
 ### Training Configuration Breakdown
 
 **Reinforcement Learning Components:**
+
 - **Actor Model**: The model being trained (policy network)
 - **Reference Model**: Frozen copy for KL divergence computation
 - **Rollout Workers**: Generate multiple responses for each prompt (n=5)
 - **Reward Function**: Evaluates response quality (custom per task)
 
 **Distributed Training:**
+
 - **FSDP (Fully Sharded Data Parallel)**: Efficient memory usage for large models
 - **vLLM Integration**: Fast inference during rollout generation
 - **Tensor Parallelism**: For rollout workers (size=2)
 
 **Optimization:**
+
 - **GRPO Algorithm**: Group-based advantage estimation for stable training
 - **KL Penalty**: Prevents model from deviating too far from base model
 - **Gradient Checkpointing**: Reduces memory usage during backpropagation
@@ -404,6 +414,7 @@ For mathematical reasoning tasks:
 ### Resource Requirements
 
 **Recommended Configuration for Qwen2.5-7B:**
+
 - **Nodes**: 1 node (sufficient for RL training with actor + reference + rollout)
 - **Accelerators**: 8 × H100 GPUs per node
 - **Memory**: ~400GB+ GPU memory total (actor, reference, and rollout workers)
@@ -411,6 +422,7 @@ For mathematical reasoning tasks:
 - **Storage**: ~50GB for checkpoints
 
 **Command Line Parameters Explained:**
+
 - `FORCE_TORCHRUN=1`: Ensures proper distributed training setup
 - `--runtime pytorch-28-vllm-0110-nvidia`: PyTorch 2.8 with vLLM 0.11.0 optimized for EasyR1
 - `--repository-url`: Points to the FlexAI blueprints repository
@@ -419,16 +431,19 @@ For mathematical reasoning tasks:
 ### Key Configuration Parameters
 
 **Data Settings:**
+
 - `rollout_batch_size: 512`: Number of prompts per training iteration
 - `max_prompt_length: 2048`: Maximum input length
 - `max_response_length: 2048`: Maximum output length
 
 **Algorithm Settings:**
+
 - `adv_estimator: grpo`: Choice of RL algorithm
 - `kl_coef: 1.0e-2`: Strength of KL penalty
 - `use_kl_loss: true`: Enable KL divergence loss
 
 **Training Settings:**
+
 - `total_epochs: 15`: Number of training epochs
 - `n_gpus_per_node: 8`: GPUs per node
 - `val_freq: 5`: Validation every 5 epochs
@@ -453,7 +468,7 @@ flexai training run grpo-VL-Geo \
   --accels 8 --nodes 1 \
   --repository-url https://github.com/flexaihq/blueprints \
   --env FORCE_TORCHRUN=1 \
-  --env WANDB_API_KEY=<YOUR_WANDB_API_KEY> \
+  --secret WANDB_API_KEY=<WANDB_API_KEY_SECRET_NAME> \
   --secret HF_TOKEN=<HF_AUTH_TOKEN_SECRET_NAME> \
   --requirements-path code/easyR1/requirements.txt \
   --runtime pytorch-28-vllm-0110-nvidia \
@@ -476,7 +491,7 @@ flexai training run Dapo-14B \
   --accels 8 --nodes 1 \
   --repository-url https://github.com/flexaihq/blueprints \
   --env FORCE_TORCHRUN=1 \
-  --env WANDB_API_KEY=<YOUR_WANDB_API_KEY> \
+  --secret WANDB_API_KEY=<WANDB_API_KEY_SECRET_NAME> \
   --secret HF_TOKEN=<HF_AUTH_TOKEN_SECRET_NAME> \
   --requirements-path code/easyR1/requirements.txt \
   --runtime pytorch-28-vllm-0110-nvidia \
@@ -497,6 +512,7 @@ flexai training run Dapo-14B \
 **Common Issues:**
 
 **Training Job Fails to Start:**
+
 ```bash
 # Check FlexAI authentication
 flexai auth status
@@ -506,33 +522,39 @@ git clone https://github.com/flexaihq/blueprints
 ```
 
 **Out of Memory Errors:**
+
 - Reduce `rollout_batch_size` from 512 to 256
 - Reduce `rollout.n` from 5 to 3 (fewer samples per prompt)
 - Enable CPU offloading: `enable_cpu_offload: true` in FSDP config
 - Reduce `tensor_parallel_size` for rollout workers
 
 **Reward Function Errors:**
+
 - Verify reward function path is correct in config
 - Test reward function locally before training
 - Ensure reward function returns float scores for all inputs
 - Check for NaN or infinite reward values
 
 **Checkpoint Not Inference Ready:**
+
 - Wait for training to complete fully
 - Check `save_model_only: false` in config to include all necessary files
 - Verify training completed without errors
 
 **Endpoint Deployment Issues:**
+
 - Verify checkpoint shows `INFERENCE READY = true` status
 - Check FlexAI cluster availability
 - Review detailed logs with `flexai inference logs <endpoint-name>`
 
 **Dataset Loading Issues:**
+
 - Verify dataset path format: `username/dataset@split`
 - Ensure HuggingFace token has access to datasets
 - Check prompt_key and answer_key match your dataset schema
 
 **vLLM Rollout Errors:**
+
 - Adjust `gpu_memory_utilization` (default 0.6)
 - Reduce `tensor_parallel_size` if GPUs are insufficient
 - Enable `enforce_eager: true` for debugging
@@ -541,9 +563,9 @@ git clone https://github.com/flexaihq/blueprints
 
 ## References
 
-- **EasyR1 GitHub**: https://github.com/hiyouga/EasyR1
-- **VERL Framework**: https://github.com/volcengine/verl
-- **FlexAI Documentation**: https://docs.flex.ai
-- **HybridFlow Paper**: https://arxiv.org/abs/2409.19256
-- **GRPO Algorithm**: Introduced in DeepSeekMath paper - https://arxiv.org/abs/2402.03300
-- **GRPO Documentation**: https://huggingface.co/docs/trl/grpo_trainer
+- **EasyR1 GitHub**: <https://github.com/hiyouga/EasyR1>
+- **VERL Framework**: <https://github.com/volcengine/verl>
+- **FlexAI Documentation**: <https://docs.flex.ai>
+- **HybridFlow Paper**: <https://arxiv.org/abs/2409.19256>
+- **GRPO Algorithm**: Introduced in DeepSeekMath paper - <https://arxiv.org/abs/2402.03300>
+- **GRPO Documentation**: <https://huggingface.co/docs/trl/grpo_trainer>
