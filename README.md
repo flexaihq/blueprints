@@ -35,7 +35,7 @@ The following table lists out the experiments available in this repository. Each
 | 19  | [Text-to-Audio Inference with FlexAI Endpoints](/experiments/text-to-audio-inference/README.md)                                  | Deploy and use Stable Audio Open 1.0 for high-quality audio generation via FlexAI inference endpoints                     |
 | 20  | [Text-to-Speech Inference with FlexAI Endpoints](/experiments/text-to-speech-inference/README.md)                                | Deploy and use the Kokoro model for natural voice synthesis via FlexAI inference endpoints                                |
 | 21  | [Text-to-Video Inference with FlexAI Endpoints](/experiments/text-to-video-inference/README.md)                                  | Deploy and use Wan2.2-T2V-A14B for high-quality video generation via FlexAI inference endpoints                           |
-| 22  | [Object Detection and Computer Vision with Ultralytics YOLO11](/experiments/ultralytics-yolo/README.md)                          | Train and deploy state-of-the-art object detection, segmentation, and pose estimation models using YOLO11                 |
+| 22  | [Object Detection and Computer Vision with Ultralytics YOLO11](/experiments/ultralytics/README.md)                          | Train and deploy state-of-the-art object detection, segmentation, and pose estimation models using YOLO11                 |
 
 ---
 
