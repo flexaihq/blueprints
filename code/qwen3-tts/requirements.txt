@@ -1,0 +1,6 @@
+# Qwen3-TTS Dependencies for flexAI
+gradio==6.9.0
+numpy==2.4.3
+openai==2.26.0
+soundfile==0.13.1
+sox==1.5.0
