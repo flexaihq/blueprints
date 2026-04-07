@@ -1,3 +1,8 @@
+> [!WARNING]
+> **This repository is deprecated.** The blueprints have been migrated to the
+> [FlexAI Documentation](https://docs.flex.ai/blueprints). Please refer to the
+> docs going forward. This repository will no longer be actively maintained.
+
 # FlexAI Experiments
 
 This repository provides **a set of different experiments** designed for you to try out and explore **FlexAI**. These experiments range from running your very first training job, to fine-tuning language, diffusion, and text-to-speech models using techniques like QLoRA and LoRA, as well as integrating FlexAI with other platforms, such as experiment trackers.
